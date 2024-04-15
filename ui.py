@@ -30,19 +30,24 @@ def main():
         image = Image.open(uploaded_file)
         st.image(image, caption="Original Image", use_column_width=True)
 
+        st.divider()
+
         resized_image = resize_image(image)
         st.image(resized_image, caption="Resized to 32x32", use_column_width=True)
 
+        st.divider()
         pixel_array = image_to_array(resized_image)
 
         st.write("Pixel Values:")
         st.write(pixel_array)
 
+        st.divider()
         model = load_model()
 
         input_image = np.expand_dims(pixel_array, axis=0)/255.0
         st.write('Input image dimensions:', input_image.shape)
 
+        st.divider()
         predictions = model.predict(input_image)
 
         predicted_class = np.argmax(predictions)
